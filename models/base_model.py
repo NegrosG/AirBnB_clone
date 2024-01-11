@@ -3,16 +3,25 @@
 from datetime import datetime
 import uuid
 
+
 class BaseModel:
-    """This represents the BaseModel of thie HBnb project"""
+    """This represents the BaseModel of the project"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """The constructor"""
-
-        self.id = str(uuid.uuid4())
-
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
+        t_format = "%Y-%m-%dT%H:%M:%S.%f"
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "__class__":
+                    continue
+                elif key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.strptime(value, t_format))
+                else:
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
 
     def save(self):
         """Updates the public instance attribute updated_at
@@ -28,7 +37,7 @@ class BaseModel:
         dict_inst["updated_at"] = self.updated_at.isoformat()
 
         return dict_inst
-    
+
     def __str__(self):
         """Returns the str representation of
         BaseModel  instance"""
