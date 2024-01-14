@@ -11,7 +11,7 @@ class Review(BaseModel):
     Atrributes:
     place_id: the place id
     user_id: the user id
-    text: the text of reviews 
+    text: the text of reviews
     """
     place_id = ""
     user_id = ""

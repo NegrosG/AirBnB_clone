@@ -10,7 +10,7 @@ class City(BaseModel):
     Represents the city
     Attributes:
     state_id: state id
-    name: name of city    
+    name: name of city
     """
     state_id = ""
     name = ""
