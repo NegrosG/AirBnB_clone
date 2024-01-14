@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Deefining the User module with it's
+"""Defining the User module with it's
 Attributes
 """
 from models.base_model import BaseModel
