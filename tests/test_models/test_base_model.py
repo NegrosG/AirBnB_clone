@@ -9,7 +9,7 @@ from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
     """
-    unittest for BaseModel  
+    unittest for BaseModel
     """
 
     def setUp(self):
@@ -21,7 +21,6 @@ class TestBaseModel(unittest.TestCase):
 
         except FileNotFoundError:
             pass
-
 
     def tearDown(self):
         """
@@ -69,8 +68,10 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertEqual(model_test_dict["__class__"], 'BaseModel')
         self.assertEqual(model_test_dict['id'], model_test.id)
-        self.assertEqual(model_test_dict['created_at'], model_test.created_at.isoformat())
-        self.assertEqual(model_test_dict["updated_at"], model_test.updated_at.isoformat())
+        self.assertEqual(model_test_dict['created_at'], 
+                         model_test.created_at.isoformat())
+        self.assertEqual(model_test_dict["updated_at"], 
+                         model_test.created_at.isoformat())
 
     def test_str(self):
         """
@@ -81,6 +82,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(str(model_test).startswith('[BaseModel]'))
         self.assertIn(model_test.id, str(model_test))
         self.assertIn(str(model_test.__dict__), str(model_test))
+
 
 if __name__ == "__main__":
     unittest.main()
