@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """Defining the HBNB comsole"""
 import cmd
 from models.base_model import BaseModel
