@@ -4,13 +4,14 @@ import cmd
 from models.base_model import BaseModel
 import shlex
 from models import storage
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """Defining the hbnb command prompt"""
     prompt = "(hbnb)"
 
-    valid_class = ["BaseModel"]
+    valid_class = ["BaseModel", "User"]
 
     def emptyline(self):
         """
