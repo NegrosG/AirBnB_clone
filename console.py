@@ -93,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             objects = storage.all()
             key = "{}.{}".format(arguments[0], arguments[1])
-            for key in objects.items():
+            for key in objects:
                 del object[key]
                 storage.save()
             else:
