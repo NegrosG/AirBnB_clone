@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defining the HBNB comsole"""
+"""Defining the HBNB console"""
 import cmd
 from models.base_model import BaseModel
 import shlex
@@ -118,6 +118,31 @@ class HBNBCommand(cmd.Cmd):
                 if key.split(".")[0] == arguments[0]:
                     print(str(value))
 
+    def do_count(self, arg):
+        """
+        Counts and retrieves the number of instances of a class
+        usage: <class name>.count()
+        """
+        objects = storage.all()
+
+        arguments = shlex.split(arg)
+
+        if arg:
+            class_nm = arguments[0]
+
+        count = 0
+
+        if arguments:
+            if class_nm in self.valid_class:
+                for obj in objects.values():
+                    if obj.__class__.__name__ == class_nm:
+                        count += 1
+                print(count)
+            else:
+                print("** invalid class name **")
+        else:
+            print("** class name missing **")
+
     def do_update(self, arg):
         """
         updates an instance of the class name based on the class
@@ -153,6 +178,36 @@ class HBNBCommand(cmd.Cmd):
                 setattr(objs, att_name, att_value)
 
                 objs.save()
+
+    def default(self, arg):
+        """
+        Default behavior for cmd module when input is invalid
+        """
+        arg_list = arg.split('.')
+
+        class_nm = arg_list[0]  # incoming class name
+
+        command = arg_list[1].split('(')
+
+        pre_method = command[0]  # incoming command method
+
+        e_arg = command[1].split(')')[0]  # extra arguments
+
+        method_dict = {
+                'all': self.do_all,
+                'show': self.do_show,
+                'destroy': self.do_destroy,
+                'update': self.do_update,
+                'count': self.do_count
+                }
+
+        if pre_method in method_dict.keys():
+            if pre_method != "update":
+                return method_dict[pre_method]("{} {}".format(class_nm, e_arg))
+            else:
+                if not class_nm:
+                    print(" **class name missing** ")
+                    return
 
 
 if __name__ == "__main__":
